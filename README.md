@@ -5,8 +5,18 @@ Class booking for a local gym. Members book, cancel and join waitlists from thei
 An interactive, frontend-only prototype that comes with a requirements document and a demo script.
 
 - **Prototype:** [ritmo-app-bay.vercel.app](https://ritmo-app-bay.vercel.app)
-- **Requirements:** [docs/PRD.md](docs/PRD.md)
+- **Requirements:** [docs/PRD.pdf](docs/PRD.pdf) (Product Requirements Document)
 - **Demo script:** [docs/DEMO.md](docs/DEMO.md) (short version below)
+
+![The member app and the studio admin side by side](docs/screenshots/side-by-side.png)
+
+<p>
+  <img src="docs/screenshots/member-home.png" alt="Member home on a phone" width="260" />
+  &nbsp;
+  <img src="docs/screenshots/admin-today.png" alt="Admin Today view on desktop" width="560" />
+</p>
+
+*Left: a member's home on a phone. Right: the front desk's Today view. The sample data is generated around the current date.*
 
 ## Run it
 

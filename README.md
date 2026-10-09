@@ -4,7 +4,7 @@ Class booking for a local gym. Members book, cancel and join waitlists from thei
 
 An interactive, frontend-only prototype that comes with a requirements document and a demo script.
 
-- **Prototype:** [deployed link]
+- **Prototype:** [ritmo-app-bay.vercel.app](https://ritmo-app-bay.vercel.app)
 - **Requirements:** [docs/PRD.md](docs/PRD.md)
 - **Demo script:** [docs/DEMO.md](docs/DEMO.md) (short version below)
 
@@ -65,7 +65,7 @@ src/
 
 ## Deploy
 
-Any static host works. On Vercel, import the repo and keep the defaults (build `npm run build`, output `dist`). `vercel.json` sends every route to the app. After the first deploy, set the absolute URL of `og.png` in `index.html` so link previews show the image everywhere.
+Any static host works. On Vercel, import the repo and keep the defaults (build `npm run build`, output `dist`). `vercel.json` sends every route to the app. If the domain changes, update the absolute `og:image` and `og:url` in `index.html` so link previews keep working.
 
 ## Stack
 

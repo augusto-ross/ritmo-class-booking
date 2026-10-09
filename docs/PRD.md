@@ -9,7 +9,7 @@
 | **Status** | Draft 2, for review with the client |
 | **Last updated** | October 2026 |
 | **Target release** | Within 3 months of sign-off |
-| **Prototype** | [deployed link] · source: [repository link] |
+| **Prototype** | [ritmo-app-bay.vercel.app](https://ritmo-app-bay.vercel.app) · source: [github.com/augusto-ross/ritmo-class-booking](https://github.com/augusto-ross/ritmo-class-booking) |
 
 **Contents:** 1. Summary · 2. Problem · 3. Goals and non-goals · 4. Success metrics · 5. Users · 6. Solution overview · 7. Requirements · 8. Business rules · 9. Notifications · 10. Non-functional requirements · 11. Assumptions and dependencies · 12. Risks · 13. Open questions · 14. Release plan · 15. Future work · Appendix
 

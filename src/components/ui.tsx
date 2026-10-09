@@ -73,10 +73,21 @@ export function Avatar({ name, src, className }: { name: string; src?: string; c
   )
 }
 
-export function Meter({ value, max, color }: { value: number; max: number; color: string }) {
+// With `here`, the booked share splits in two: solid for people checked in, a light tint for the rest.
+export function Meter({ value, max, color, here }: { value: number; max: number; color: string; here?: number }) {
+  const share = (n: number) => `${Math.min(100, (n / max) * 100)}%`
+  const split = here !== undefined
   return (
-    <div className="h-1.5 w-full overflow-hidden rounded-full bg-ink/10" role="img" aria-label={`${value} of ${max} spots taken`}>
-      <div className="h-full rounded-full transition-all duration-500" style={{ width: `${Math.min(100, (value / max) * 100)}%`, background: color }} />
+    <div
+      className="relative h-1.5 w-full overflow-hidden rounded-full bg-ink/10"
+      role="img"
+      aria-label={split ? `${here} of ${value} booked checked in, ${max} spots` : `${value} of ${max} spots taken`}
+    >
+      <div
+        className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
+        style={{ width: share(value), background: color, opacity: split ? 0.35 : 1 }}
+      />
+      {split && <div className="absolute inset-y-0 left-0 rounded-full transition-all duration-500" style={{ width: share(here), background: color }} />}
     </div>
   )
 }

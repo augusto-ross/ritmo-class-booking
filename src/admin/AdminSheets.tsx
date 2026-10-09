@@ -226,7 +226,7 @@ function Detail({ session, now, onClose, onEdit }: DetailProps & { session: Sess
               {checkIn ? `${present} checked in` : `${session.waitlist.length} waiting`}
             </span>
           </div>
-          <Meter value={session.booked.length} max={session.capacity} color={type.color} />
+          <Meter value={session.booked.length} max={session.capacity} color={type.color} here={checkIn ? present : undefined} />
         </div>
 
         {open && (

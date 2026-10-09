@@ -229,7 +229,7 @@ function TodayView({ sessions, now, open, create, goTo }: ViewProps & { goTo: (v
                   <p className="flex-1 text-sm text-ink/80">
                     {flag === 'demand'
                       ? 'More people want in than fit. You could add a second class.'
-                      : 'Starts within a day and is less than half full.'}
+                      : 'Starts within a day with under 40% of spots booked.'}
                   </p>
                   <div className="-ml-2 flex flex-wrap gap-1">
                     {flag === 'demand' && (

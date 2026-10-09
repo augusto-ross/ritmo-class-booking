@@ -25,7 +25,7 @@ There is no login on purpose. Pick a profile on the first screen, or switch at a
 
 | Profile | What to look at |
 |---|---|
-| **Maya**, member | Her week: a class within the hour, a full class tomorrow, favourites ready to book |
+| **Maya**, member | Her week: a class in about an hour, a full class tomorrow, favourites ready to book |
 | **Leo**, member | First on the waitlist for both of Maya's classes: sees automatic promotion and open-spot alerts |
 | **Sam**, new member | First day: nothing booked, no favourites; empty states and suggestions |
 | **Carla**, studio admin | Today's overview, schedule by week, month and room, check-in, members, studio rules |
@@ -34,10 +34,10 @@ There is no login on purpose. Pick a profile on the first screen, or switch at a
 
 The full version, with what to say at each step, is in [docs/DEMO.md](docs/DEMO.md). Click **Reset demo** before starting.
 
-1. **Maya's week.** Home (*Up next*, *This week*, *Your usual classes*), schedule filters, a class detail with its rules and **Add to calendar**, the notification inbox and reminder settings.
+1. **Maya's week.** Home (*Up next*, *This week*, *Your usual classes*), schedule filters, booking a class (its rules and **Add to calendar** appear once booked), the notification inbox and reminder settings.
 2. **A freed spot fills itself.** Side by side with Leo. As Maya, cancel tomorrow's full class: Leo is booked automatically and notified, and the roster updates.
-3. **Inside the 2-hour cutoff.** Reset, then as Maya cancel the class within the hour: a late-cancel warning. Leo sees *A spot opened* and books it himself; nobody is booked without being asked.
-4. **The front desk.** As Carla: the four indicators, suggestions, check-in with *Mark all as here*, **New class** (starts at the first free slot, warns of clashes), the Rooms view, and Members (*Needs attention*, *Inactive*).
+3. **Inside the 2-hour cutoff.** Reset, then as Maya cancel her *Up next* class (about an hour away): a late-cancel warning. Leo sees *A spot opened* and books it himself; nobody is booked without being asked.
+4. **The front desk.** As Carla: the indicators, suggestions, check-in with *Mark all as here*, **New class** (starts at the first free slot, warns of clashes), the Rooms view, and Members (*Needs attention*, *Inactive*).
 5. **The studio's rules.** **Rules** page; then open `/admin?scenario=spot-held` to see a spot held for the front desk and give it from the waitlist.
 6. **A new member.** Sam's first-day home, and the *New* badge in admin Members.
 7. **Close** with what is out of scope and the open questions in the PRD.

@@ -33,7 +33,8 @@ const statsFor = (m: Member, sessions: Session[], now: number, days: number): Ro
   const past = sessions.filter((s) => s.start > from && hasStarted(s, now))
   const attended = past.filter((s) => s.attendance[m.id] === 'present')
   const missed = past.filter((s) => s.attendance[m.id] === 'absent').length
-  const late = past.filter((s) => s.lateCancels.includes(m.id)).length
+  // Late cancels count from the moment they happen, as on Today, not once the class has run.
+  const late = sessions.filter((s) => s.start > from && s.lateCancels.includes(m.id)).length
   const visits = sessions.filter((s) => hasStarted(s, now) && s.attendance[m.id] === 'present')
   const counts: Record<string, number> = {}
   for (const s of attended) counts[s.typeId] = (counts[s.typeId] ?? 0) + 1
@@ -242,7 +243,10 @@ export function MembersView({ sessions, now, initialSegment = 'all', initialPeri
             <Avatar name={r.name} className="h-10 w-10" />
             <span className="min-w-0 flex-1">
               <span className="flex items-center justify-between gap-2">
-                <span className="truncate font-semibold">{r.name}</span>
+                <span className="flex min-w-0 items-center gap-1.5">
+                  <span className="truncate font-semibold">{r.name}</span>
+                  {r.isNew && <span className="rounded-full bg-brand-soft px-1.5 py-0.5 text-[10px] font-bold uppercase text-brand">New</span>}
+                </span>
                 <Issues missed={r.missed} late={r.late} />
               </span>
               <span className="mt-0.5 flex items-center gap-2 text-xs text-muted">

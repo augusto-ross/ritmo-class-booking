@@ -188,9 +188,10 @@ export const useNoticeToasts = (memberId: ID, scope: Scope, notices: Notice[]) =
     const pending = useApp.getState().studio.notices.filter((n) => n.memberId === memberId && !n.toasted)
     if (pending.length === 0) return
     useApp.getState().apply((studio) => markToasted(studio, pending.map((n) => n.id)))
-    for (const n of pending.slice(0, 2)) {
-      useToasts.getState().push({ scope, tone: n.kind === 'promoted' ? 'success' : 'alert', title: n.title, body: n.body })
-    }
+    // One toast per scope: show the newest, the rest are in the inbox.
+    const n = pending[0]
+    const more = pending.length > 1 ? ` (+${pending.length - 1} more in notifications)` : ''
+    useToasts.getState().push({ scope, tone: n.kind === 'promoted' ? 'success' : 'alert', title: n.title, body: n.body + more })
   }, [memberId, scope, notices])
 }
 

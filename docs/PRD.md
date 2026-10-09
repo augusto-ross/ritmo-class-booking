@@ -30,19 +30,19 @@ This document describes the first release. A clickable prototype with realistic 
 | | |
 |---|---|
 | **Business** | A small, single-location gym with a local membership and a varied weekly class schedule across a few rooms. |
-| **Today** | Class attendance is coordinated manually by the admin team. Members ask in person or by message; the team keeps the lists. |
+| **Today** | Class attendance is coordinated manually by the admin team, which takes bookings and keeps the lists by hand. How members reach the team today is to be confirmed (Q9). |
 | **Main pain** | Administration: taking bookings, handling cancellations, keeping waitlists in order, and knowing which time slots still have room. |
 
 ### Why it matters
 
 - **Empty places in wanted classes.** A cancelled spot that nobody hears about stays empty while other members wanted it.
 - **Staff time.** Every booking, cancellation and "is there room?" question is handled by a person.
-- **No visibility for members.** They cannot tell if a class has room without asking, so some don't come.
+- **No visibility for members.** They cannot tell if a class has room without asking the team.
 - **No data.** Without records of late cancellations and no-shows, the owner cannot decide on a fair policy.
 
 ### Evidence
 
-Gathered from the discovery meeting with the owner. Numbers (classes per week, members, cancellations) are not available yet and are the first open question to close (Q9).
+From the discovery meeting: the class types, the manual process, and administration as the main pain. Everything else in this document that describes how members and staff behave today is a working assumption, marked as such, to validate with the owner. Numbers (classes per week, members, cancellations) are not available yet and are the first open question to close (Q9).
 
 ## 3. Goals and non-goals
 
@@ -77,20 +77,22 @@ Gathered from the discovery meeting with the owner. Numbers (classes per week, m
 
 ## 5. Users
 
-### Member (primary user, about two thirds of the use)
+The profiles below are working assumptions, to validate with the owner and a few members in the first two weeks (section 14).
 
-Takes two to four classes a week, usually the same ones. Books on a phone, often in a spare minute.
+### Member (primary user)
+
+*Assumed:* takes a few classes a week, often the same ones, and books mostly on a phone. This is why the member app is designed for phones first.
 
 **Jobs to be done**
 
 - *When I plan my week,* I want to see my usual classes ready to book, *so I can* secure them in one tap.
 - *When a class is full,* I want to get in line and know where I stand, *so I can* decide whether to wait or pick another time.
-- *When my plans change,* I want to cancel myself, *so that* my spot goes to someone else without a phone call.
+- *When my plans change,* I want to cancel myself, *so that* my spot goes to someone else without contacting the front desk.
 - *When something changes* (a spot opens, the class is cancelled, a new instructor), I want to hear about it straight away.
 
-### Admin team: owner and front desk (about one third of the use)
+### Admin team: owner and front desk
 
-Runs the schedule and the day-to-day. Works at a desk but checks things on a phone between tasks.
+Runs the schedule and the day-to-day. *Assumed:* works mostly at a computer at the front desk, sometimes from a phone. This is why the admin is designed for desktop first and also works on a phone.
 
 **Jobs to be done**
 
@@ -122,7 +124,7 @@ Ritmo is one responsive web app with two sides, sharing the same data and rules.
 |---|---|
 | **Home** | *Up next* (the next booked class, with photo), *This week* (bookings and waitlists in the next 7 days), *Your usual classes* (favourites not yet booked, with one-tap Book or Waitlist). A new member sees *Build your routine* and *Coming up at Ritmo* instead. |
 | **Schedule** | Two weeks ahead, day by day, grouped into morning, afternoon and evening. Filters by class type and instructor (with photos). Each class shows time, instructor, room, spots left and the member's own status. |
-| **Class detail** | Photo, instructor, room, duration, occupancy, waitlist size and the rules that apply right now (free cancellation until a given time; what happens inside the cutoff). Book, join or leave the waitlist, cancel, favourite, and add to calendar. |
+| **Class detail** | Photo, instructor, room, duration, occupancy and waitlist size. Once the member is booked or waiting, the rule that applies to them in plain words (free cancellation until a given time; what happens inside the cutoff). Book, join or leave the waitlist, cancel, favourite, and add to calendar. |
 | **Bookings** | *A spot opened* (waitlists where the member can claim a free spot) first, then booked classes, waitlists, and recent history. |
 | **Notifications** | Bell with unread count. Each notice links to its class; can be cleared one by one or all at once, with undo. Email preview when email is on. |
 | **Profile** | Class reminder (none, 30 min, 1 h, 2 h), email on or off, list of favourite classes. |
@@ -131,7 +133,7 @@ Ritmo is one responsive web app with two sides, sharing the same data and rules.
 
 | Area | What it does |
 |---|---|
-| **Today** | Four indicators (classes today, spots filled, on waitlists, late cancels), each linking to the filtered list behind it. *Suggestions* (two at a time, dismissible) flag classes with high demand or low bookings. *Spots to give* (when the hold rule is on). Classes needing check-in first, then what is coming up, then tomorrow. |
+| **Today** | Four indicators (classes today, spots filled, on waitlists, late cancels); three of them open the filtered list behind them. *Suggestions* (two at a time, dismissible) flag classes with high demand or low bookings. *Spots to give* (when the hold rule is on). Classes needing check-in first, then what is coming up, then tomorrow. |
 | **Schedule** | Three views: 7 days, month, and rooms (all rooms for a day, or one room for the week). Filters by class type, instructor, room and "has a waitlist". The admin chooses what each class block shows (instructor, room, bookings). |
 | **Class panel** | Roster with check-in (Here, No-show, mark all as here), waitlist in order with *Give spot*, change instructor, edit, cancel with a reason. |
 | **New class form** | Type, instructor, room, date, start time, duration, capacity, weekly repeat. A room-day panel shows booked and free time; free slots are offered as one-tap chips; the start time defaults to the first free slot. Clashes with the room or the instructor are flagged before saving. |
@@ -179,7 +181,7 @@ Priority: **Must** for launch, **Should** if time allows, **Later** after launch
 | A1 | See today's and tomorrow's classes with occupancy and waitlist size | Must | Yes |
 | A2 | See the schedule by week, month and room, filtered by class type, instructor, room and waitlist | Must | Yes |
 | A3 | Create a class: type, instructor, room, date, time, duration, capacity, weekly repeat | Must | Yes |
-| A4 | While creating a class, see when the room and instructor are free, and be warned of clashes | Should | Yes |
+| A4 | While creating a class, see when the room is free, and be warned when the room or the instructor is already taken | Should | Yes |
 | A5 | Edit one occurrence (time, room, capacity, instructor); affected members are notified | Must | Yes |
 | A6 | Cancel one occurrence with a reason; everyone booked or waiting is notified | Must | Yes |
 | A7 | Open a class roster and its waitlist in order | Must | Yes |
@@ -226,7 +228,7 @@ Values are proposals to confirm with the gym. Those marked *setting* can be chan
 | R6 | Check-in opens **90 minutes** before class (*setting*: 30, 60, 90 or 120 min). Each booked member is marked *present* or *no-show*. A member left unmarked after the class is *not checked in*, never an automatic no-show, so a forgotten check-in never counts against a member. |
 | R7 | Raising a class's capacity offers the new spots to the waitlist first, following R3 and R4. |
 | R8 | A member removed by the admin team is not counted as a late cancellation. |
-| R9 | A member **needs attention** with 2 or more no-shows plus late cancellations in 7 days, or 4 or more in 30 days. A member is **inactive** after 21 days without attending; new members are not counted as inactive. Recorded, not penalised. |
+| R9 | A member **needs attention** when their no-shows plus late cancellations reach 2 in the last 7 days or 4 in the last 30 days, depending on the period the admin is looking at. A member is **inactive** after 21 days without attending; new members are not counted as inactive. Recorded, not penalised. |
 | R10 | **Suggestions** flag a full class with 2 or more people waiting (*high demand*), and a class starting within a day with less than 40% of its spots booked (*low bookings*). |
 
 **Why this waitlist model.** It follows established studio software. Mindbody promotes automatically with a lock window before class. Mariana Tek fills automatically until a cutoff, then alerts the whole waitlist and the first to claim gets the spot. TeamUp promotes automatically only when the spot opens more than a set time ahead. The cutoff exists so nobody is booked into a class they don't know about and then recorded as a no-show. The 12-hour window common in boutique studios (ClassPass, for example) looked strict for a neighbourhood gym, so the proposal is 2 hours, kept as a setting.
@@ -243,11 +245,12 @@ Sent only for events that change a member's plans.
 | Class cancelled by the gym | Everyone booked or waiting |
 | Class changed (time, room or instructor) | Everyone booked or waiting |
 | Reminder before class | Everyone booked, at the time each member chose |
+| Removed from a class by the studio | The member |
 | Welcome | New members |
 
 **Channels.** Email is the guaranteed channel for release 1, with the same messages listed in the app. A messaging channel such as WhatsApp or SMS would be read faster but has a per-message cost and a provider approval process (Q4).
 
-**Inbox.** Members can clear notifications; clearing never changes what was already emailed, and a reminder is never sent twice for the same class. Notifications older than 30 days leave the inbox automatically.
+**Inbox.** Members can clear notifications; clearing never changes what was already emailed, and a reminder is never sent twice for the same class. In the product, notifications older than 30 days leave the inbox automatically (not simulated in the prototype).
 
 ## 10. Non-functional requirements
 
@@ -303,7 +306,7 @@ Sent only for events that change a member's plans.
 6. **Native app.** Is presence in the app stores a requirement, or is a web app on the home screen enough?
 7. **Booking limits.** Is two weeks ahead right? Is there a limit on bookings per day or per week?
 8. **Roles.** Should front desk staff be restricted from anything the owner can do, such as cancelling classes or changing rules?
-9. **Baseline.** How many classes a week, members and cancellations does the gym handle today, and where is that data?
+9. **Today's process and baseline.** How do members book and cancel today: in person, by phone, by message? How many classes a week, members and cancellations does the gym handle, and where is that data? Do members take the same classes every week, and do they mostly use a phone?
 10. **Brand.** Does the gym have a name and identity to apply?
 11. **Check-in source.** Who marks attendance today: front desk, instructor, or nobody? Which turnstile model is used, and can it export entries? Are there activities besides classes, so that entering the building does not mean attending a class?
 12. **Member list.** Where does the list of active members live today, and how does someone stop being active?

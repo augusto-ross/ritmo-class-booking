@@ -5,6 +5,7 @@ import { instructorOf, typeOf } from '../domain/catalog'
 import {
   book,
   cancelBooking,
+  conflictFor,
   joinWaitlist,
   leaveWaitlist,
   memberState,
@@ -22,7 +23,8 @@ import { useApp, useToasts, type Scope } from '../store'
 const ordinal = (n: number) => `#${n}`
 
 export function StatePill({ session, memberId, now }: { session: Session; memberId: ID; now: number }) {
-  const rules = useApp((s) => rulesOf(s.studio))
+  const studio = useApp((s) => s.studio)
+  const rules = rulesOf(studio)
   const state = memberState(session, memberId, now, rules)
   const left = spotsLeft(session)
   const base = 'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold'
@@ -55,6 +57,7 @@ export const useMemberActions = (memberId: ID, scope: Scope) => {
   const run = (fn: (studio: Studio, now: number) => Studio, title: string, body: string, tone: 'success' | 'info' = 'success') => {
     const before = useApp.getState().studio
     apply(fn)
+    if (useApp.getState().studio === before) return
     push({ scope, tone, title, body, undo: () => restore(before) })
   }
   const name = (s: Session) => `${typeOf(s.typeId).name}, ${fmtWhen(s.start, Date.now())}`
@@ -103,7 +106,8 @@ interface RowProps {
 
 export function SessionRow({ session, memberId, now, actions, onOpen, showDay, quick }: RowProps) {
   const type = typeOf(session.typeId)
-  const rules = useApp((s) => rulesOf(s.studio))
+  const studio = useApp((s) => s.studio)
+  const rules = rulesOf(studio)
   const state = memberState(session, memberId, now, rules)
   const dim = state === 'ended' || state === 'cancelled'
   // A claimable spot is urgent, so it gets a button wherever the class is listed.
@@ -130,7 +134,12 @@ export function SessionRow({ session, memberId, now, actions, onOpen, showDay, q
       </button>
       <div className="flex items-center pr-3">
         {action ? (
-          <Button size="sm" variant={action.variant} onClick={() => (state === 'full' ? actions.join(session) : actions.book(session))}>
+          <Button
+            size="sm"
+            variant={action.variant}
+            // An overlap needs the warning in the class detail, so open it instead of booking blind.
+            onClick={() => (state === 'full' ? actions.join(session) : conflictFor(studio, session, memberId) ? onOpen() : actions.book(session))}
+          >
             {action.label}
           </Button>
         ) : (

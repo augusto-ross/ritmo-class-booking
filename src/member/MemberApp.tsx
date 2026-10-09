@@ -20,7 +20,7 @@ import {
 } from 'lucide-react'
 import { Avatar, Button, cx, Logo, Toaster, useNoticeToasts, useNow } from '../components/ui'
 import { instructorOf, memberOf, typeOf } from '../domain/catalog'
-import { dismissNotices, hasStarted, markRead, memberState, prefsOf, rulesOf, seriesKey } from '../domain/rules'
+import { dismissNotices, hasEnded, hasStarted, markRead, memberState, prefsOf, rulesOf, seriesKey } from '../domain/rules'
 import type { ID, Notice, NoticeKind, Session } from '../domain/types'
 import { DAY, fmtAgo, fmtDate, fmtDay, fmtIn, fmtTime, fmtWeekday } from '../lib/format'
 import { useApp, useToasts, type MemberId } from '../store'
@@ -265,7 +265,7 @@ function BookingsView({ memberId, now, sessions, actions, open, goSchedule }: Vi
   const rules = useApp((st) => rulesOf(st.studio))
   const claimable = future.filter((s) => memberState(s, memberId, now, rules) === 'claim')
   const waiting = future.filter((s) => s.waitlist.includes(memberId) && !claimable.includes(s))
-  const history = sessions.filter((s) => hasStarted(s, now) && s.booked.includes(memberId)).reverse().slice(0, 6)
+  const history = sessions.filter((s) => hasStarted(s, now) && (s.booked.includes(memberId) || s.lateCancels.includes(memberId))).reverse().slice(0, 6)
 
   return (
     <>
@@ -314,9 +314,7 @@ function BookingsView({ memberId, now, sessions, actions, open, goSchedule }: Vi
                 <span className="h-2 w-2 rounded-full" style={{ background: typeOf(s.typeId).color }} />
                 <span className="flex-1 font-medium">{typeOf(s.typeId).name}</span>
                 <span className="text-muted">{fmtDay(s.start, now)}</span>
-                <span className={cx('w-16 text-right text-xs font-semibold', s.attendance[memberId] === 'absent' ? 'text-danger' : 'text-ok')}>
-                  {s.attendance[memberId] === 'absent' ? 'Missed' : 'Attended'}
-                </span>
+                <HistoryStatus mark={s.lateCancels.includes(memberId) ? 'late' : s.attendance[memberId]} ended={hasEnded(s, now)} />
               </li>
             ))}
           </ul>
@@ -324,6 +322,17 @@ function BookingsView({ memberId, now, sessions, actions, open, goSchedule }: Vi
       )}
     </>
   )
+}
+
+// Only what the front desk recorded counts: an unmarked class is not "attended".
+function HistoryStatus({ mark, ended }: { mark: 'present' | 'absent' | 'late' | undefined; ended: boolean }) {
+  const [text, tone] =
+    mark === 'present' ? ['Attended', 'text-ok']
+    : mark === 'absent' ? ['Missed', 'text-danger']
+    : mark === 'late' ? ['Late cancel', 'text-warn']
+    : ended ? ['Not checked in', 'text-muted']
+    : ['In progress', 'text-muted']
+  return <span className={cx('w-24 text-right text-xs font-semibold', tone)}>{text}</span>
 }
 
 const NOTICE_ICON: Record<NoticeKind, { icon: typeof Home; className: string }> = {

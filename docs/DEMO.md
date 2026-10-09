@@ -17,25 +17,25 @@ Open the first screen: four profiles, two sides of the same product.
 
 ## 2. A member's week: Maya (3 min)
 
-1. Pick **Maya**. Point at **Up next** (a class starting within the hour) and **This week**.
+1. Pick **Maya**. Point at **Up next** (a class starting in about an hour) and **This week**.
 2. **Your usual classes:** her favourites that are not booked yet, one tap to book. *"Most members take the same classes every week; this is where they land."*
 3. Open **Schedule**, a day ahead, then **Filters**: class type and instructor with photos.
-4. Open a class with spots left. Show the rules in plain words (free cancellation until a given time), then **Add to calendar**.
+4. Open a class with spots left and **Book this class**. The detail now shows the rule in plain words (free cancellation until a given time) and **Add to calendar**. Use **Undo** on the toast if you don't want to keep it.
 5. Tap the **bell**: confirmations, reminders, changes. Clear one, then **Undo**. In **Profile**, the reminder time and the email switch.
 
 ## 3. The waitlist fills itself: Maya and Leo (4 min)
 
 Turn on **Side by side** (top bar) and choose **Leo** as the member. Keep **Carla** (admin) on the right.
 
-1. **Freed spot, more than 2 hours ahead.** Switch the phone to **Maya**, open tomorrow's full class (**This week**), and **Cancel booking**. Switch to **Leo**: he is booked automatically, with a notification. The roster on the right updated too. *"No message, no phone call, no empty spot."*
+1. **Freed spot, more than 2 hours ahead.** Switch the phone to **Maya**, open tomorrow's full class (**This week**), and **Cancel booking**. Switch to **Leo**: he is booked automatically, with a notification. The roster on the right updated too. *"No front desk, no empty spot."*
 2. **Freed spot, inside 2 hours.** Click **Reset demo**. As **Maya**, cancel the class in **Up next**. She is warned it is a late cancellation and confirms. Switch to **Leo**: **Bookings** shows *A spot opened*, and he books it himself. *"Close to class we don't book anyone without asking, or they'd become a no-show. Everyone waiting is alerted; the first to book gets it."*
 
 ## 4. The front desk: Carla (4 min)
 
 Leave side by side and pick **Carla**.
 
-1. **Today:** four numbers, each one a link (try **On waitlists**). **Suggestions**: a full class with people waiting suggests adding a second one; dismiss it with **X**.
-2. **Classes need check-in:** open one, tap **Here** for a few people and **Mark all as here**. *"Nobody is ever counted as a no-show because the desk forgot to check them in."*
+1. **Today:** four numbers; three of them open the list behind them (try **On waitlists**). **Suggestions**: a full class with people waiting suggests adding a second one; dismiss it with **X**.
+2. **Classes need check-in:** open one, tap **Here** for a few people, then **Mark N left as here** for the rest. *"Nobody is ever counted as a no-show because the desk forgot to check them in."*
 3. **New class:** the start time is already the first free slot. Change the room or time to show the free-slots chips and a clash warning. Close without saving, or add it.
 4. **Schedule:** switch between **7 days**, **Month** and **Rooms**. In Rooms, click a room name to see its whole week.
 5. **Members:** **Needs attention** (no-shows and late cancels, recorded, not penalised) and **Inactive** (a list for a "we miss you" message). Open a member and book them into a class from their panel.
@@ -60,5 +60,5 @@ Pick **Sam**. Nothing booked, no favourites: the home screen explains how to bui
 ## If something goes wrong
 
 - **State looks odd:** **Reset demo**.
-- **A class from the script isn't there:** the data is built around the current time. Late in the evening there may be no class "within the hour"; use another class from *This week* or *Schedule*.
+- **A class from the script isn't there:** the data is built around the moment of the last reset, so click **Reset demo** right before you start. Maya's *Up next* class is always about an hour away; after 10 PM it falls after midnight and shows as tomorrow.
 - **Phone view on a laptop:** the member app is centred at phone width; this is expected.

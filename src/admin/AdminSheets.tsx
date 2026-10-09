@@ -314,7 +314,7 @@ function Detail({ session, now, onClose, onEdit }: DetailProps & { session: Sess
                 <Button
                   variant="dark"
                   onClick={() => {
-                    act((st, t) => cancelSession(st, session.id, reason, t), 'Class cancelled', affected > 0 ? `${affected} members notified` : undefined)
+                    act((st, t) => cancelSession(st, session.id, reason, t), 'Class cancelled', affected > 0 ? `${affected} ${affected === 1 ? 'member' : 'members'} notified` : undefined)
                     onClose()
                   }}
                 >
@@ -364,7 +364,12 @@ function ClassForm({ editing, preset, now, onClose }: Omit<FormProps, 'open'>) {
   const [typeId, setTypeId] = useState(editing?.typeId ?? CLASS_TYPES[0].id)
   const [instructorId, setInstructorId] = useState(editing?.instructorId ?? INSTRUCTORS[0].id)
   const [room, setRoom] = useState(editing?.room ?? preset?.room ?? ROOMS[0])
-  const [date, setDate] = useState(toDateInput(editing?.start ?? day ?? addDays(startOfDay(now), 1)))
+  // Late in the evening today has no room left, so a new class starts on tomorrow instead.
+  const [date, setDate] = useState(() => {
+    const first = editing?.start ?? day ?? addDays(startOfDay(now), 1)
+    const full = !editing && sameDay(first, now) && freeWindows(sessions, room, startOfDay(now), 45, now).length === 0
+    return toDateInput(full ? addDays(startOfDay(now), 1) : first)
+  })
   const [picked, setPicked] = useState(editing ? toTimeInput(editing.start) : preset?.time)
   const [durationMin, setDurationMin] = useState(editing?.durationMin ?? 45)
   const [capacity, setCapacity] = useState(editing?.capacity ?? 12)

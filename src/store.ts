@@ -47,7 +47,7 @@ export const useApp = create<AppState>()(
       reset: () => set({ ...fresh(), dismissed: [] }),
     }),
     {
-      name: 'ritmo-demo-v8',
+      name: 'ritmo-demo-v9',
       // The schedule is seeded around "today", so yesterday's saved state would look stale.
       onRehydrateStorage: () => (state) => {
         if (state && state.seededOn !== dayKey(Date.now())) state.reset()
@@ -76,6 +76,11 @@ let toastId = 0
 export const useToasts = create<ToastState>((set, get) => ({
   toasts: [],
   push: (toast) => {
+    const busy = !toast.undo && get().toasts.find((t) => t.scope === toast.scope && t.undo)
+    if (busy) {
+      setTimeout(() => get().push(toast), 6000)
+      return
+    }
     const id = ++toastId
     set((s) => ({ toasts: [...s.toasts.filter((t) => t.scope !== toast.scope).slice(-2), { ...toast, id }] }))
     setTimeout(() => get().dismiss(id), toast.undo ? 6000 : 4500)

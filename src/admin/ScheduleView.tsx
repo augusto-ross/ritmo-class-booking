@@ -147,6 +147,13 @@ export function ScheduleView({ sessions, now, open, create, waitlistOnly: initia
         <Select label="Filter by class" filter value={typeId} onChange={setTypeId} options={TYPE_OPTIONS} />
         <Select label="Filter by instructor" filter value={instructorId} onChange={setInstructorId} options={INSTRUCTOR_OPTIONS} />
         <Select label="Filter by room" filter value={room} onChange={setRoom} options={ROOM_OPTIONS} align="right" />
+        <button
+          onClick={() => setWaitlistOnly(!waitlistOnly)}
+          aria-pressed={waitlistOnly}
+          className={cx('h-10 rounded-full px-4 text-sm font-semibold transition', waitlistOnly ? 'bg-ink text-paper' : 'bg-white text-ink shadow-card hover:bg-sand')}
+        >
+          Has a waitlist
+        </button>
         {active > 0 && (
           <button onClick={clear} className="h-10 rounded-full px-3 text-sm font-semibold text-muted hover:bg-ink/5 hover:text-ink">
             Clear filters

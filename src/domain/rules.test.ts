@@ -230,6 +230,20 @@ describe('held spots', () => {
     const open = cancelBooking(base, 's1', 'm1', NOW)
     expect(heldSpots(open, NOW)).toEqual([])
   })
+
+  it('lets members join the line of a class whose free spot is held', () => {
+    const base = studio(session({ start: NOW + HOUR }))
+    const hold = cancelBooking(setRules(base, { cutoffHours: 2, lateSpot: 'hold', checkInMinutes: 90 }), 's1', 'm1', NOW)
+    expect(only(joinWaitlist(hold, 's1', 'm9', NOW)).waitlist).toEqual(['m3', 'm4', 'm9'])
+  })
+})
+
+describe('sample data personas', () => {
+  it('gives Leo a past routine, so he is not shown as inactive', () => {
+    const st = buildStudio(NOW)
+    expect(st.sessions.some((s) => s.start < NOW && s.attendance.leo === 'present')).toBe(true)
+    expect(st.sessions.some((s) => s.start < NOW && (s.booked.includes('sam') || s.waitlist.includes('sam')))).toBe(false)
+  })
 })
 
 describe('free windows', () => {

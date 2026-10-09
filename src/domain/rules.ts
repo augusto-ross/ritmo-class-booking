@@ -136,7 +136,7 @@ export const book = (studio: Studio, sessionId: ID, memberId: ID, now: number): 
 
 export const joinWaitlist = (studio: Studio, sessionId: ID, memberId: ID, now: number): Studio => {
   const s = find(studio, sessionId)
-  if (!s || !isOpen(s, now) || !isFull(s)) return studio
+  if (!s || !isOpen(s, now) || !(isFull(s) || isHeld(s, now, rulesOf(studio)))) return studio
   if (s.booked.includes(memberId) || s.waitlist.includes(memberId)) return studio
   return patch(studio, sessionId, (x) => ({ ...x, waitlist: [...x.waitlist, memberId] }))
 }

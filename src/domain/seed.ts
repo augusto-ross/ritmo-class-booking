@@ -80,9 +80,10 @@ export const buildStudio = (now: number): Studio => {
       if (hasStarted(s, now)) {
         s.waitlist = []
         if (MAYA_ROUTINE.includes(seriesKey(s))) s.booked = [MAYA, ...s.booked.slice(1)]
+        if (LEO_ROUTINE.includes(seriesKey(s))) s.booked = [LEO, ...s.booked.slice(1)]
         // Classes that already ran today are left unmarked, waiting for the front desk.
         for (const id of start < today ? s.booked : []) {
-          const missChance = id === MAYA ? 0 : FLAKY.includes(id) ? 0.3 : 0.04
+          const missChance = id === MAYA || id === LEO ? 0 : FLAKY.includes(id) ? 0.3 : 0.04
           s.attendance[id] = rand() < missChance ? 'absent' : 'present'
         }
         if (rand() < 0.12) s.lateCancels = pick(1, s.booked)
@@ -152,11 +153,6 @@ export const buildStudio = (now: number): Studio => {
       id: `n${++seq}`, memberId: SAM, kind: 'reminder', at: now - 2 * 60 * 60000,
       title: 'Welcome to Ritmo', read: false, toasted: true,
       body: 'Book your first class from the schedule. Star the ones you want to repeat every week and they will wait for you on your home screen.',
-    },
-    {
-      id: `n${++seq}`, memberId: LEO, kind: 'reminder', at: now - 3 * 24 * 60 * 60000,
-      title: 'Welcome to Ritmo', ...seen,
-      body: 'Star the classes you take every week and they will show up first on your home screen.',
     },
   ]
 

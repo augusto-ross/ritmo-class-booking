@@ -2,7 +2,8 @@ import type { ReactNode } from 'react'
 import { Bike, Flame, Flower2, HandFist, MapPin, PersonStanding, TrendingDown, UserRound, Zap, type LucideIcon } from 'lucide-react'
 import { cx, Meter } from '../components/ui'
 import { instructorOf, typeOf } from '../domain/catalog'
-import { hasEnded, hasStarted, uncheckedIn, type Attention } from '../domain/rules'
+import { checkInOpen, hasEnded, hasStarted, presentCount, rulesOf, uncheckedIn, type Attention } from '../domain/rules'
+import { useApp } from '../store'
 import type { ID, Session } from '../domain/types'
 import { fmtIn, fmtTime } from '../lib/format'
 
@@ -63,9 +64,9 @@ export function AdminRow({ session, now, onOpen }: { session: Session; now: numb
   const missing = uncheckedIn(session, now).length
   const off = (session.status === 'cancelled' || hasEnded(session, now)) && missing === 0
   const Icon = TYPE_ICONS[type.id]
-  // Split the bar once check-in is under way: the class has started or the desk already marked someone.
-  const present = session.booked.filter((id) => session.attendance[id] === 'present').length
-  const here = hasStarted(session, now) || present > 0 ? present : undefined
+  // Same window as the roster sheet, so the row and the sheet always show the same meter.
+  const rules = useApp((s) => rulesOf(s.studio))
+  const here = checkInOpen(session, now, rules) ? presentCount(session) : undefined
   return (
     <button
       onClick={onOpen}
@@ -85,11 +86,13 @@ export function AdminRow({ session, now, onOpen }: { session: Session; now: numb
             <p className={cx('truncate font-semibold', session.status === 'cancelled' && 'line-through')}>{type.name}</p>
             <p className="flex min-w-0 items-center gap-3 text-[13px] text-muted">
               <span className="inline-flex min-w-0 items-center gap-1">
-                <UserRound className="h-3.5 w-3.5 shrink-0" aria-label="Instructor" />
+                <UserRound className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                <span className="sr-only">Instructor </span>
                 <span className="truncate">{instructorOf(session.instructorId).name}</span>
               </span>
               <span className="inline-flex min-w-0 items-center gap-1">
-                <MapPin className="h-3.5 w-3.5 shrink-0" aria-label="Room" />
+                <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                <span className="sr-only">Room </span>
                 <span className="truncate">{session.room}</span>
               </span>
             </p>

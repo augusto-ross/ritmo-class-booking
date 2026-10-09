@@ -10,6 +10,8 @@ import {
   adminRemove,
   attentionFor,
   book,
+  checkInOpen,
+  presentCount,
   cancelBooking,
   cancelSession,
   changeInstructor,
@@ -181,6 +183,18 @@ describe('check-in', () => {
   it('lists booked members left without a mark once the class is over', () => {
     expect(uncheckedIn(ended(), NOW)).toEqual(['m1', 'm3'])
     expect(uncheckedIn(session({ attendance: {} }), NOW)).toEqual([])
+  })
+
+  it('counts members marked present', () => {
+    expect(presentCount(session({ booked: ['m1', 'm2', 'm3'], attendance: { m1: 'present', m2: 'absent' } }))).toBe(1)
+  })
+
+  it('opens check-in the set minutes before the start, never for a cancelled class', () => {
+    const rules = { cutoffHours: 2, lateSpot: 'open' as const, checkInMinutes: 90 }
+    expect(checkInOpen(session({ start: NOW + HOUR }), NOW, rules)).toBe(true)
+    expect(checkInOpen(session({ start: NOW + 2 * HOUR }), NOW, rules)).toBe(false)
+    expect(checkInOpen(ended(), NOW, rules)).toBe(true)
+    expect(checkInOpen(session({ start: NOW - HOUR, status: 'cancelled' }), NOW, rules)).toBe(false)
   })
 
   it('marks everyone still unmarked as present, keeping existing marks', () => {

@@ -81,7 +81,7 @@ export function Meter({ value, max, color, here }: { value: number; max: number;
     <div
       className="relative h-1.5 w-full overflow-hidden rounded-full bg-ink/10"
       role="img"
-      aria-label={split ? `${here} of ${value} booked checked in, ${max} spots` : `${value} of ${max} spots taken`}
+      aria-label={split ? `${here} checked in, ${value} of ${max} spots booked` : `${value} of ${max} spots taken`}
     >
       <div
         className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"

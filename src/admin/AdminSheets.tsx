@@ -18,6 +18,8 @@ import {
   rulesOf,
   markAllPresent,
   uncheckedIn,
+  checkInOpen,
+  presentCount,
   scheduleClashes,
   setAttendance,
   updateSession,
@@ -86,8 +88,8 @@ function Detail({ session, now, onClose, onEdit }: DetailProps & { session: Sess
   const open = isOpen(session, now)
   const rules = useApp((s) => rulesOf(s.studio))
   const free = isOpen(session, now) ? session.capacity - session.booked.length : 0
-  const checkIn = session.status === 'scheduled' && session.start - now <= rules.checkInMinutes * 60000
-  const present = session.booked.filter((id) => session.attendance[id] === 'present').length
+  const checkIn = checkInOpen(session, now, rules)
+  const present = presentCount(session)
   const unmarked = session.booked.filter((id) => !session.attendance[id])
   const missing = uncheckedIn(session, now)
   const addable = MEMBERS.filter((m) => !session.booked.includes(m.id) && !session.waitlist.includes(m.id))

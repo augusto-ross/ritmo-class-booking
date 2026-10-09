@@ -263,6 +263,12 @@ export const setAttendance = (studio: Studio, sessionId: ID, memberId: ID, value
 export const uncheckedIn = (s: Session, now: number) =>
   s.status === 'scheduled' && hasEnded(s, now) ? s.booked.filter((id) => !s.attendance[id]) : []
 
+export const presentCount = (s: Session) => s.booked.filter((id) => s.attendance[id] === 'present').length
+
+// The front desk can start marking people the set minutes before a class, and any time after it.
+export const checkInOpen = (s: Session, now: number, rules: StudioRules = DEFAULT_RULES) =>
+  s.status === 'scheduled' && s.start - now <= rules.checkInMinutes * 60000
+
 // Upcoming classes with a free spot and people waiting, held for the front desk to give.
 // Only the "hold" rule leaves this to staff; the other rules fill or advertise the spot themselves.
 export const heldSpots = (studio: Studio, now: number) =>

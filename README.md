@@ -10,13 +10,7 @@ An interactive, frontend-only prototype that comes with a requirements document 
 
 ![The member app and the studio admin side by side](docs/screenshots/side-by-side.png)
 
-<p>
-  <img src="docs/screenshots/member-home.png" alt="Member home on a phone" width="260" />
-  &nbsp;
-  <img src="docs/screenshots/admin-today.png" alt="Admin Today view on desktop" width="560" />
-</p>
-
-*Left: a member's home on a phone. Right: the front desk's Today view. The sample data is generated around the current date.*
+*Left: a member's home on a phone. Right: the front desk's Today view. One action shows up on both sides. The sample data is generated around the current date.*
 
 ## Run it
 

@@ -5,7 +5,7 @@ Class booking for a local gym. Members book, cancel and join waitlists from thei
 An interactive, frontend-only prototype that comes with a requirements document and a demo script.
 
 - **Prototype:** [ritmo-app-bay.vercel.app](https://ritmo-app-bay.vercel.app)
-- **Requirements:** [docs/PRD.pdf](docs/PRD.pdf) (Product Requirements Document)
+- **Requirements:** [docs/Ritmo-PRD.pdf](docs/Ritmo-PRD.pdf) (Product Requirements Document)
 - **Demo script:** [docs/DEMO.md](docs/DEMO.md) (short version below)
 
 ![The member app and the studio admin side by side](docs/screenshots/side-by-side.png)
